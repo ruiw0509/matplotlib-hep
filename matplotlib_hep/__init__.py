@@ -101,39 +101,35 @@ def make_split(ratio, gap=0.12):
 
     return ax, bx
 
-def plot_pull(data, func):
+def plot_pull(bin_centers, binned_data_errors, binned_model, axis):
 
     import numpy as np
     import matplotlib.pyplot as plt
     from matplotlib.ticker import MaxNLocator
 
-    ax, bx = make_split(0.8)
+    # plt.sca(ax)
+    #
+    # x, y, norm = histpoints(data)
+    #
+    # lower, upper = ax.get_xlim()
+    #
+    # xs = np.linspace(lower, upper, 200)
+    # plt.plot(xs, norm * func(xs), 'b-')
+    #
+    # #plt.gca().yaxis.set_major_locator(MaxNLocator(prune='lower'))
 
-    plt.sca(ax)
+    plt.sca(axis)
 
-    x, y, norm = histpoints(data)
-
-    lower, upper = ax.get_xlim()
-
-    xs = np.linspace(lower, upper, 200)
-    plt.plot(xs, norm * func(xs), 'b-')
-
-    #plt.gca().yaxis.set_major_locator(MaxNLocator(prune='lower'))
-
-    plt.sca(bx)
-
-    resid = y[1] - norm * func(x)
+    resid = binned_data_errors[1] - binned_model
     err = np.zeros_like(resid)
-    err[resid >= 0] = y[0][resid >= 0]
-    err[resid < 0] = y[2][resid < 0]
+    err[resid >= 0] = binned_data_errors[0][resid >= 0]
+    err[resid < 0] = binned_data_errors[2][resid < 0]
 
     pull = resid / err
 
-    plt.errorbar(x, pull, yerr=1, color='k', fmt='o')
+    plt.errorbar(bin_centers, pull, yerr=1, color='k', fmt='o')
     plt.ylim(-5, 5)
     plt.axhline(0, color='b')
 
-    plt.sca(ax)
-
-    return ax, bx
+    return axis
 
