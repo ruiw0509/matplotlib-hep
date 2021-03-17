@@ -29,7 +29,7 @@ def poisson_limits(N, kind, confidence=0.6827):
     lower[N==0] = 0
     return N - lower, upper - N
 
-def histpoints(x, bins=None, xerr=None, yerr='gamma', normed=False, **kwargs):
+def histpoints(x, bins=None, xerr=None, yerr='gamma', normed=False, axis=None, **kwargs):
     """
     Plot a histogram as a series of data points.
 
@@ -53,11 +53,12 @@ def histpoints(x, bins=None, xerr=None, yerr='gamma', normed=False, **kwargs):
 
     """
     import matplotlib.pyplot as plt
-
+    if axis is None:
+        fig, axis = plt.subplots()
     if bins is None:
         bins = calc_nbins(x)
-
-    h, bins = np.histogram(x, bins=bins)
+    plt.sca(axis)
+    h, bins = np.histogram(x, bins=bins, range=kwargs.pop('range', None))
     width = bins[1] - bins[0]
     center = (bins[:-1] + bins[1:]) / 2
     area = sum(h * width)
