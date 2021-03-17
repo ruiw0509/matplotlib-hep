@@ -7,7 +7,7 @@ An add-on for matplotlib that simplifies the creation of plots for high energy p
 This package is not yet on PyPI.
 You can install it from this repository by running
 ```bash
-pip install --user git+https://github.com/ibab/matplotlib-hep
+pip install --user git+https://github.com/Lakshan-Ram/matplotlib-hep
 ```
 
 ## The histpoints plotting function
@@ -78,4 +78,3 @@ plt.savefig('pull.png')
 ```
 
 <div align="center"><img src="./pull.png" width="600px"/></div>
-
