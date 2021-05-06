@@ -7,7 +7,7 @@ An add-on for matplotlib that simplifies the creation of plots for high energy p
 This package is not yet on PyPI.
 You can install it from this repository by running
 ```bash
-pip install --user git+https://github.com/Lakshan-Ram/matplotlib-hep
+pip install --user git+https://github.com/ruiw0509/matplotlib-hep
 ```
 
 ## The histpoints plotting function
